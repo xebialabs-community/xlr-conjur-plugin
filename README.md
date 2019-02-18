@@ -28,7 +28,7 @@ See the **XL Release Reference Manual** for background information on XL Release
 
 # Usage #
 
-## Configure Server ##
+## Configure the Conjur Server ##
 
 Begin by configuring one or more Conjur servers.  Navigate to **Settings -> Shared configuration** and add a Conjur: Server.
 

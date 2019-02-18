@@ -1,0 +1,10 @@
+
+{
+  "id":"unused",
+  "type":"conjur.Server",
+  "title":"theConjurServer",
+  "url":"http://conjur",
+  "username": "admin",
+  "account": "quick-start",
+  "password": "p9ze3r2xgcqpa3tp1abcbqzd0d1bp24vw10yrnm91a0yycb3wvwxnm"
+}

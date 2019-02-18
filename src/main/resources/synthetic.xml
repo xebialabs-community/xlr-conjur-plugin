@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS
+    FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
+
+-->
+<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <type type="conjur.Task" extends="xlrelease.PythonScript" virtual="true">
+        <property name="iconLocation" default="logo/conjur-logo.png" hidden="true"/>
+        <property name="conjurServer" category="input" label="Server" referenced-type="conjur.Server" kind="ci"/>
+    </type>
+
+    <type type="conjur.GetSecret" extends="conjur.Task">
+        <property name="scriptLocation" default="conjur/getSecret.py" hidden="true" />
+        <property name="secretName" category="input" label="Name of secret as stored in Conjur"  required="true"/>
+        <property name="secretOutput" category="output" kind="string" password="true" label="Release Variable" required="true" description="Name of Release Variable that will store the secret"/>
+    </type>
+
+
+	<type type="conjur.Server" extends="configuration.HttpConnection" label="Conjur: Server">
+        <property name="scriptLocation" required="false" hidden="true" default="conjur/control/check_connection.py" />
+        <property name="account"  required="true" kind="string" label="Account" description="Name of the Conjur account holding the secret"/>
+    </type>
+
+</synthetic>

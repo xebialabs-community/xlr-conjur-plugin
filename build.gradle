@@ -1,0 +1,99 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+  id "com.github.hierynomus.license" version "0.14.0"
+  id "com.xebialabs.xldp" version "1.0.5"
+  id 'nebula.release' version '6.0.0'
+  id "com.github.hierynomus.jython" version "0.3.0"
+}
+
+
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+
+if (!project.hasProperty('release.scope')) {
+  project.ext['release.scope'] = 'patch'
+}
+
+if (!project.hasProperty('release.useLastTag')) {
+  project.ext['release.useLastTag'] = true
+}
+
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven {
+    url 'https://dist.xebialabs.com/public/maven2'
+  }
+  maven { url 'http://repo.spring.io/libs-release/' }
+  maven {
+        url 'https://dl.bintray.com/palantir/releases' // docker-compose-rule is published on bintray
+    }
+}
+
+
+test {
+    // Auto detected Unit tests only, exclude the end to end integration test
+    exclude '**/*IntegrationTest.class'
+    
+    // show standard out and standard error of the test JVM(s) on the console
+    testLogging.showStandardStreams = true
+}
+ 
+task integrationTest(type: Test) {
+    // do not automatically scan for tests
+    scanForTestClasses = false 
+    // explicitly include the integration test
+    include '**/*IntegrationTest.class'
+    // To run tests - 
+    // 1. Docker  and Docker Compose must be installed 
+    // 2. The XL-Release image expects to find a valid XL-Release license here: ~/xl-licenses/xl-release-license.lic
+    // 3. The XL-Release image expects to find your plugin jar file here: <your plugin dev directory>/build/libs/
+    // 4. To run the test - ./gradlew clean assemble integrationTest
+    //   The test will set up a temporary xlr/conjur testbed using docker.
+    // After testing is complete, the test docker containers are stopped and removed. 
+    
+    // show standard out and standard error of the test JVM(s) on the console
+    testLogging.showStandardStreams = true
+}
+
+
+
+configurations {
+  provided
+  compile.extendsFrom provided
+}
+
+dependencies {
+  // Place rest-assured before JUnit dependency to make sure correct Hamcrest is used
+  testCompile 'io.rest-assured:rest-assured:3.2.0'
+  testCompile "junit:junit:4.11"
+  testCompile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+  testCompile 'org.assertj:assertj-core:3.6.2'
+  testCompile 'com.palantir.docker.compose:docker-compose-rule-junit4:0.35.0'
+  testCompile 'com.palantir.docker.compose:docker-compose-rule-core:0.35.0'
+  testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.8.0-beta2'
+
+  compile group: 'com.google.guava', name: 'guava', version: '19.0'
+  compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
+  compile group: 'org.apache.commons', name: 'commons-text', version: '1.3'
+  compile group: 'edu.emory.mathcs.backport', name: 'com.springsource.edu.emory.mathcs.backport', version: '3.1.0'
+  compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
+  compile group: 'org.apache.commons', name: 'commons-exec', version: '1.3'
+  compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
+  compile group: 'org.apache.commons', name: 'commons-text', version: '1.3'
+  compile group: 'joda-time', name: 'joda-time', version: '2.10.1'
+
+  runtime group: 'org.python', name: 'jython-standalone', version: '2.7.0'
+}
+
+license {
+  header rootProject.file('License.md')
+  strictCheck false
+  ext.year = Calendar.getInstance().get(Calendar.YEAR)
+  ext.name = 'XEBIALABS'
+}

@@ -1,0 +1,9 @@
+
+{
+  "id":"unused",
+  "type":"jira.Server",
+  "title":"theMockJiraServer",
+  "url":"http://mockserver:5000",
+  "username": "admin",
+  "password": "badPassword"
+}

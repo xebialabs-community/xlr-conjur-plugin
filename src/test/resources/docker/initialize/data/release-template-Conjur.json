@@ -1,0 +1,185 @@
+[{
+  "id": "Applications/Release1a90039757eb40eca2ea4904e60651a3",
+  "type": "xlrelease.Release",
+  "title": "theConjurTemplate",
+  "scheduledStartDate": "2019-02-05T15:00:00Z",
+  "flagStatus": "OK",
+  "overdueNotified": false,
+  "maxConcurrentReleases": 100,
+  "releaseTriggers": [],
+  "teams": [
+    {
+      "id": "Applications/Release1a90039757eb40eca2ea4904e60651a3/Teama4d8c0b30bd24a04881e8f6b2285a213",
+      "type": "xlrelease.Team",
+      "teamName": "Template Owner",
+      "members": [
+        "admin"
+      ],
+      "roles": [],
+      "permissions": [
+        "template#edit",
+        "template#lock_task",
+        "template#view",
+        "template#edit_triggers",
+        "template#edit_precondition",
+        "template#edit_security",
+        "template#create_release",
+        "template#edit_failure_handler"
+      ]
+    },
+    {
+      "id": "Applications/Release1a90039757eb40eca2ea4904e60651a3/Team0c8e5cb517874c47a13f2b412782161c",
+      "type": "xlrelease.Team",
+      "teamName": "Release Admin",
+      "members": [],
+      "roles": [],
+      "permissions": [
+        "release#edit_precondition",
+        "release#edit",
+        "release#reassign_task",
+        "release#edit_security",
+        "release#view",
+        "release#lock_task",
+        "release#start",
+        "release#edit_blackout",
+        "template#view",
+        "release#edit_failure_handler",
+        "release#abort",
+        "release#edit_task"
+      ]
+    }
+  ],
+  "memberViewers": [
+    "admin"
+  ],
+  "roleViewers": [],
+  "attachments": [],
+  "phases": [
+    {
+      "id": "Applications/Release1a90039757eb40eca2ea4904e60651a3/Phasee00407bbbf1c46e5be94bcce0c25901d",
+      "type": "xlrelease.Phase",
+      "title": "New Phase",
+      "flagStatus": "OK",
+      "overdueNotified": false,
+      "tasks": [
+        {
+          "id": "Applications/Release1a90039757eb40eca2ea4904e60651a3/Phasee00407bbbf1c46e5be94bcce0c25901d/Taskde8a7ce1e1b54747a9c6213a1516e42a",
+          "type": "xlrelease.CustomScriptTask",
+          "title": "conjurGetSecret",
+          "flagStatus": "OK",
+          "overdueNotified": false,
+          "comments": [
+            {
+              "id": "Release1a90039757eb40eca2ea4904e60651a3/Phasee00407bbbf1c46e5be94bcce0c25901d/Taskde8a7ce1e1b54747a9c6213a1516e42a/Comment71d8712640cb4fcea9a6ebe6c8b22ff2",
+              "type": "xlrelease.Comment",
+              "text": "This task will retrieve the secret password stored in the Conjur server under the name db/password. The secret password will be place in the release variable (type password) 'theSecret'. Subsequent tasks can then use that password to override configured server credentials.",
+              "author": "admin",
+              "date": "2019-02-05T18:24:14.361Z",
+              "creationDate": "2019-02-05T18:24:14.359Z"
+            }
+          ],
+          "container": "Applications/Release1a90039757eb40eca2ea4904e60651a3/Phasee00407bbbf1c46e5be94bcce0c25901d",
+          "facets": [],
+          "attachments": [],
+          "status": "PLANNED",
+          "waitForScheduledStartDate": true,
+          "delayDuringBlackout": false,
+          "postponedDueToBlackout": false,
+          "hasBeenFlagged": false,
+          "hasBeenDelayed": false,
+          "taskFailureHandlerEnabled": false,
+          "failuresCount": 0,
+          "variableMapping": {
+            "pythonScript.secretOutput": "${theSecret}"
+          },
+          "tags": [],
+          "dueSoonNotified": false,
+          "locked": false,
+          "checkAttributes": false,
+          "watchers": [],
+          "pythonScript": {
+            "id": "Applications/Release1a90039757eb40eca2ea4904e60651a3/Phasee00407bbbf1c46e5be94bcce0c25901d/Taskde8a7ce1e1b54747a9c6213a1516e42a/PythonScript",
+            "type": "conjur.GetSecret",
+            "customScriptTask": "Applications/Release1a90039757eb40eca2ea4904e60651a3/Phasee00407bbbf1c46e5be94bcce0c25901d/Taskde8a7ce1e1b54747a9c6213a1516e42a",
+            "conjurServer": "Configuration/Custom/theConjurServer",
+            "secretName": "db/password"
+          }
+        },
+        {
+          "id": "Applications/Release1a90039757eb40eca2ea4904e60651a3/Phasee00407bbbf1c46e5be94bcce0c25901d/Task40a020727f9446058335dec55902a879",
+          "type": "xlrelease.CustomScriptTask",
+          "title": "mockJiraCreateIssue",
+          "flagStatus": "OK",
+          "overdueNotified": false,
+          "comments": [
+            {
+              "id": "Release1a90039757eb40eca2ea4904e60651a3/Phasee00407bbbf1c46e5be94bcce0c25901d/Task40a020727f9446058335dec55902a879/Comment74c9ed5e98534d87800108b5f9c2b4b1",
+              "type": "xlrelease.Comment",
+              "text": "This task will send a createIssue request to the mockJiraServer. The mockJiraServer expects the request to include the secret password previously retrieved from Conjur and stored in the 'theSecret' release variable. If the password is not correct, the mockJiraServer will reject the request and the response status will be 401 rather than 201.",
+              "author": "admin",
+              "date": "2019-02-05T18:25:06.194Z",
+              "creationDate": "2019-02-05T18:24:22.005Z"
+            }
+          ],
+          "container": "Applications/Release1a90039757eb40eca2ea4904e60651a3/Phasee00407bbbf1c46e5be94bcce0c25901d",
+          "facets": [],
+          "attachments": [],
+          "status": "PLANNED",
+          "waitForScheduledStartDate": true,
+          "delayDuringBlackout": false,
+          "postponedDueToBlackout": false,
+          "hasBeenFlagged": false,
+          "hasBeenDelayed": false,
+          "taskFailureHandlerEnabled": false,
+          "failuresCount": 0,
+          "variableMapping": {
+            "pythonScript.password": "${theSecret}"
+          },
+          "tags": [],
+          "dueSoonNotified": false,
+          "locked": false,
+          "checkAttributes": false,
+          "watchers": [],
+          "pythonScript": {
+            "id": "Applications/Release1a90039757eb40eca2ea4904e60651a3/Phasee00407bbbf1c46e5be94bcce0c25901d/Task40a020727f9446058335dec55902a879/PythonScript",
+            "type": "jira.CreateIssue",
+            "customScriptTask": "Applications/Release1a90039757eb40eca2ea4904e60651a3/Phasee00407bbbf1c46e5be94bcce0c25901d/Task40a020727f9446058335dec55902a879",
+            "jiraServer": "Configuration/Custom/theMockJiraServer",
+            "username": "admin",
+            "project": "theProject",
+            "title": "theIssue",
+            "issueType": "Task"
+          }
+        }
+      ],
+      "release": "Applications/Release1a90039757eb40eca2ea4904e60651a3",
+      "status": "PLANNED"
+    }
+  ],
+  "queryableStartDate": "2019-02-05T15:00:00Z",
+  "realFlagStatus": "OK",
+  "status": "TEMPLATE",
+  "tags": [],
+  "variables": [
+    {
+      "id": "Applications/Release1a90039757eb40eca2ea4904e60651a3/Variable096ec5b62f4d4b9db9c139c159424b11",
+      "type": "xlrelease.PasswordStringVariable",
+      "key": "theSecret",
+      "requiresValue": false,
+      "showOnReleaseStart": false,
+      "label": "The Secret"
+    }
+  ],
+  "calendarPublished": false,
+  "tutorial": false,
+  "abortOnFailure": false,
+  "allowConcurrentReleasesFromTrigger": true,
+  "runningTriggeredReleasesCount": 0,
+  "createdFromTrigger": false,
+  "extensions": [],
+  "autoStart": false,
+  "automatedResumeCount": 0,
+  "riskProfile": "Configuration/riskProfiles/Default risk profile",
+  "riskScore": "000",
+  "totalRiskScore": "0000"
+}]

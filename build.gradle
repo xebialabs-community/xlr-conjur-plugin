@@ -50,9 +50,9 @@ task integrationTest(type: Test) {
     // explicitly include the integration test
     include '**/*IntegrationTest.class'
     // To run tests - 
-    // 1. Docker  and Docker Compose must be installed 
-    // 2. The XL-Release image expects to find a valid XL-Release license here: ~/xl-licenses/xl-release-license.lic
-    // 3. The XL-Release image expects to find your plugin jar file here: <your plugin dev directory>/build/libs/
+    // 1. Integration tests do not run on Windows (yet)
+    // 2. Docker  and Docker Compose must be installed 
+    // 3. The XL-Release image expects to find a valid XL-Release license here: ~/xl-licenses/xl-release-license.lic
     // 4. To run the test - ./gradlew clean assemble integrationTest
     //   The test will set up a temporary xlr/conjur testbed using docker.
     // After testing is complete, the test docker containers are stopped and removed. 
@@ -60,7 +60,6 @@ task integrationTest(type: Test) {
     // show standard out and standard error of the test JVM(s) on the console
     testLogging.showStandardStreams = true
 }
-
 
 
 configurations {
@@ -96,6 +95,7 @@ license {
   strictCheck false 
   skipExistingHeaders true
   ignoreFailures true
+  excludes(["**/*.txt", "**/*.json", "**/*.pyc", "**/*.yml", "Dockerfile"])
   ext.year = Calendar.getInstance().get(Calendar.YEAR)
   ext.name = 'XEBIALABS'
 }

@@ -223,9 +223,11 @@ public final class ConjurTestHelper {
         return returnStr;
     }
 
-    private static String getResourceFilePath(String filePath){  
+    public static String getResourceFilePath(String filePath){ 
+        // Working with resoure files instead of the file system - OS Agnostic 
         ClassLoader classLoader = ConjurTestHelper.class.getClassLoader();
-        String resourcePath = classLoader.getResource(filePath).getFile();
+        String resourcePath = classLoader.getResource(filePath).getPath();
+        //System.out.println("resourceFilePath = "+resourcePath);
         return resourcePath;
     }
 
@@ -246,6 +248,8 @@ public final class ConjurTestHelper {
     }
 
     public static void modifyFile(String filePath, String oldString, String newString) {
+        // Because we are working with resource files, we are modifying in-memory files, 
+        //     the files on disk are not modified. 
         File fileToBeModified = new File(filePath);
         String oldContent = "";
         BufferedReader reader = null;

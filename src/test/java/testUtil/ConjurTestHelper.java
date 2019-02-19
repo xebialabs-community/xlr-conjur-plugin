@@ -33,7 +33,7 @@ public final class ConjurTestHelper {
 
     private static final String BASE_URI = "http://localhost:15516/api/v1";
     private static RequestSpecification httpRequest = null;
-    private static String pathPrefix = "src/test/resources/docker/";
+    //private static String pathPrefix = "src/test/resources/docker/";
 
     private static final String IMPORT_CONFIG = "/config";
     private static final String IMPORT_TEMPLATE = "/templates/import";
@@ -92,7 +92,7 @@ public final class ConjurTestHelper {
         Thread.sleep(30000);
         // Load the conjur server configs 
         // Prepare httpRequest
-        JSONObject requestParams = getRequestParamsFromFile(pathPrefix+"initialize/data/server-configs-Conjur.json");
+        JSONObject requestParams = getRequestParamsFromFile(getResourceFilePath("docker/initialize/data/server-configs-Conjur.json"));
         httpRequest.header("Content-Type", "application/json");
         httpRequest.header("Accept", "application/json");
         httpRequest.body(requestParams.toJSONString());
@@ -107,7 +107,7 @@ public final class ConjurTestHelper {
         }
 
         // Update the request params and load the moockJira server configs
-        requestParams = getRequestParamsFromFile(pathPrefix+"initialize/data/server-configs-MockJira.json");
+        requestParams = getRequestParamsFromFile(getResourceFilePath("docker/initialize/data/server-configs-MockJira.json"));
         httpRequest.body(requestParams.toJSONString());
 
         // Post server config
@@ -124,14 +124,14 @@ public final class ConjurTestHelper {
         requestParams = new JSONObject();
         httpRequest.body(requestParams.toJSONString());
         httpRequest.contentType("multipart/form-data");
-        httpRequest.multiPart(new File(pathPrefix+"initialize/data/release-template-Conjur.json"));
+        httpRequest.multiPart(new File(getResourceFilePath("docker/initialize/data/release-template-Conjur.json")));
         } catch (Exception e) {
             e.printStackTrace();
         }
         // Load the template
         requestParams = new JSONObject();
         httpRequest.body(requestParams.toJSONString());
-        httpRequest.multiPart(new File(pathPrefix+"initialize/data/release-template-Conjur.json"));
+        httpRequest.multiPart(new File(getResourceFilePath("docker/initialize/data/release-template-Conjur.json")));
 
         // Post template
         response = httpRequest.post(IMPORT_TEMPLATE);
@@ -221,6 +221,12 @@ public final class ConjurTestHelper {
             e.printStackTrace();
         }
         return returnStr;
+    }
+
+    private static String getResourceFilePath(String filePath){  
+        ClassLoader classLoader = ConjurTestHelper.class.getClassLoader();
+        String resourcePath = classLoader.getResource(filePath).getFile();
+        return resourcePath;
     }
 
     public static String readFile(String path) {

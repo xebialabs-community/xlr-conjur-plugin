@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.util.Scanner;
 import java.util.Map;
 
@@ -225,9 +226,13 @@ public final class ConjurTestHelper {
 
     public static String getResourceFilePath(String filePath){ 
         // Working with resoure files instead of the file system - OS Agnostic 
+        String resourcePath = "";
         ClassLoader classLoader = ConjurTestHelper.class.getClassLoader();
-        String resourcePath = classLoader.getResource(filePath).getPath();
-        //System.out.println("resourceFilePath = "+resourcePath);
+        try {
+            resourcePath = new File (classLoader.getResource(filePath).toURI()).getAbsolutePath();  
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return resourcePath;
     }
 

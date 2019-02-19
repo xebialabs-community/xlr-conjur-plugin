@@ -3,10 +3,22 @@
 # CI status #
 
 [![Build Status][xlr-conjur-travis-image] ][xlr-conjur-travis-url]
-
+[![Codacy Badge][xlr-conjur-plugin-codacy-image] ][xlr-conjur-plugin-codacy-url]
+[![Code Climate][xlr-conjur-plugin-code-climate-image] ][xlr-conjur-plugin-code-climate-url]
+[![License: MIT][xlr-conjur-plugin-license-image] ][xlr-conjur-plugin-license-url]
+[![Github All Releases][xlr-conjur-plugin-downloads-image] ]()
 
 [xlr-conjur-travis-image]: https://travis-ci.org/xebialabs-community/xlr-conjur-plugin.svg?branch=master
 [xlr-conjur-travis-url]: https://travis-ci.org/xebialabs-community/xlr-conjur-plugin
+[xlr-conjur-plugin-codacy-image]: https://api.codacy.com/project/badge/Grade/88dec34743b84dac8f9aaaa665a99207
+[xlr-conjur-plugin-codacy-url]: https://www.codacy.com/app/ladamato/xlr-conjur-plugin
+
+[xlr-conjur-plugin-code-climate-image]: https://codeclimate.com/github/xebialabs-community/xlr-conjur-plugin/badges/gpa.svg
+[xlr-conjur-plugin-code-climate-url]: https://codeclimate.com/github/xebialabs-community/xlr-conjur-plugin
+[xlr-conjur-plugin-license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
+[xlr-conjur-plugin-license-url]: https://opensource.org/licenses/MIT
+[xlr-conjur-plugin-downloads-image]: https://img.shields.io/github/downloads/xebialabs-community/xlr-conjur-plugin/total.svg
+
 
 
 # Overview #

@@ -1,5 +1,7 @@
 # XL Release Conjur Plugin
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/73046deb267f43b082d8393c20203499)](https://app.codacy.com/app/ladamato/xlr-conjur-plugin?utm_source=github.com&utm_medium=referral&utm_content=xebialabs-community/xlr-conjur-plugin&utm_campaign=Badge_Grade_Dashboard)
+
 # CI status #
 
 [![Build Status][xlr-conjur-travis-image] ][xlr-conjur-travis-url]

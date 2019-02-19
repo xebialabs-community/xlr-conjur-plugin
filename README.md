@@ -38,7 +38,7 @@ Enter a descriptive name for this server.
 
 ### URL ###
 
-Enter the full URL to the Conjur server from which secrets can be retrieved.  Include protocol (http or https) and port number if applicable.  For example: http://conjur
+Enter the full URL to the Conjur server from which secrets can be retrieved.  Include protocol (http or https) and port number if applicable.
 
 ### Authentication Method ###
 
@@ -46,7 +46,7 @@ Choose the Basic Method from the drop down list. You may need to click the entry
 
 ### Account ###
 
-Enter the enter the name of the Conjur account where the secrets are stored.  For example: quick-start
+Enter the enter the name of the Conjur account where the secrets are stored.
 
 ### Username ###
 

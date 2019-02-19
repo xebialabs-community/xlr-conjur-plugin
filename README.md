@@ -102,6 +102,6 @@ Build and package the plugins with...
 Run end to end integration tests - note: You will need to have docker and docker-compose installed. The most recent version of your plug-in jar should be in your project build/libs directory. Running the gradle task 'assemble' before running the integrationTest will create the jar and place it in the libs directory.
 
 ```bash
-./gradlew clean assemble integrationTesting
+./gradlew clean assemble integrationTest
 ```
 

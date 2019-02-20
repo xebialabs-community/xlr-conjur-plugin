@@ -1,5 +1,5 @@
 #
-# Copyright 2018 XEBIALABS
+# Copyright 2019 XEBIALABS
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 #
@@ -22,7 +22,6 @@ logging.basicConfig(filename='log/plugin.log',
                             datefmt='%H:%M:%S',
                             level=logging.DEBUG)
 
-""" Conjur client """
 class ConjurClient(object):
 
     @staticmethod
@@ -31,8 +30,8 @@ class ConjurClient(object):
 
 
     def __init__(self, url, account, username, password):
-        logging.debug("Creating Conjur client for '%s', account '%s', user '%s'" % (url, account, username)) 
-        
+        logging.debug("Creating Conjur client for '%s', account '%s', user '%s'" % (url, account, username))
+
         authnUri = URI.create("%s/authn/%s/" % (url, account))
         secretsUri = URI.create("%s/secrets/%s/variable" % (url, account))
 

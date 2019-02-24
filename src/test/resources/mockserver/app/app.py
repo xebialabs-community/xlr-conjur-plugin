@@ -1,3 +1,4 @@
+#!flask/bin/python
 #
 # Copyright 2019 XEBIALABS
 #

@@ -8,8 +8,8 @@
 [![License: MIT][xlr-conjur-plugin-license-image] ][xlr-conjur-plugin-license-url]
 [![Github All Releases][xlr-conjur-plugin-downloads-image] ]()
 
-[xlr-conjur-travis-image]: https://travis-ci.org/xebialabs-community/xlr-conjur-plugin.svg?branch=master
-[xlr-conjur-travis-url]: https://travis-ci.org/xebialabs-community/xlr-conjur-plugin
+[xlr-conjur-travis-image]: https://travis-ci.com/xebialabs-community/xlr-conjur-plugin.svg?branch=master
+[xlr-conjur-travis-url]: https://travis-ci.com/xebialabs-community/xlr-conjur-plugin
 [xlr-conjur-plugin-codacy-image]: https://api.codacy.com/project/badge/Grade/88dec34743b84dac8f9aaaa665a99207
 [xlr-conjur-plugin-codacy-url]: https://www.codacy.com/app/ladamato/xlr-conjur-plugin
 

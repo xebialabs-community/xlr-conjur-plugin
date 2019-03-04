@@ -45,7 +45,8 @@ test {
     testLogging.showStandardStreams = true
 }
  
-task integrationTest(type: Test) {
+
+task integrationTest(type: Test, dependsOn: ['assemble']) {
     // do not automatically scan for tests
     scanForTestClasses = false 
     // explicitly include the integration test
@@ -54,14 +55,25 @@ task integrationTest(type: Test) {
     // 1. Integration tests do not run on Windows (yet)
     // 2. Docker  and Docker Compose must be installed 
     // 3. The XL-Release image expects to find a valid XL-Release license here: ~/xl-licenses/xl-release-license.lic
-    // 4. To run the test - ./gradlew clean assemble integrationTest
+    // 4. To run the test - ./gradlew clean integrationTest
     //   The test will set up a temporary xlr/conjur testbed using docker.
     // After testing is complete, the test docker containers are stopped and removed. 
+
+    // To run demo or dev version (set up docker containers, load and run tests, but leave docker containers running):
+    //
+    // On the command line, set the property test.skipShutDown to false as such:
+    //        ./gradlew -Dtest.skipShutDown=true integrationTest
+    //
+    //     NOTE: In this case, before running the integrationTest again, via gradle, you will need to manually stop and remove these containers
+
+    // Assign all Java system properties from
+    // the command line to the JavaExec task.
+    // This will allow us to pass the optional command line value test.skipShutDown=true to the integrationTest program
+    systemProperties System.properties
     
     // show standard out and standard error of the test JVM(s) on the console
     testLogging.showStandardStreams = true
 }
-
 
 configurations {
   provided

@@ -81,7 +81,7 @@ public class ConjurIntegrationTest {
 
 
     // Tests
-
+    /*
     @Test
     public void testSecretRetrieval() throws Exception {
         String theResult = ConjurTestHelper.getConjurReleaseResult();
@@ -89,4 +89,5 @@ public class ConjurIntegrationTest {
         assertTrue(ConjurTestHelper.readFile(ConjurTestHelper.getResourceFilePath("testExpected/secretRetrieval.txt")).equals(theResult));
         System.out.println("testSecretRetrieval passed ");
     }
+    */
 }

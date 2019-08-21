@@ -256,6 +256,7 @@ public final class ConjurTestHelper {
         }
         return result.toString();
     }
+    
 
     public static void modifyFile(String filePath, String oldString, String newString) {
         // Because we are working with resource files, we are modifying in-memory files, 

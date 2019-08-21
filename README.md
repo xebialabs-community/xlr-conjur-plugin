@@ -109,7 +109,7 @@ In this example, the Conjur Get Secret task is followed by a JIRA Create Issue t
 Build and package the plugins with...
 
 ```bash
-./gradle assemble
+./gradlew assemble
 ```
 
 Run end to end integration tests - note: 

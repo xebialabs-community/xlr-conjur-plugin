@@ -64,7 +64,7 @@ task integrationTest(type: Test, dependsOn: ['assemble']) {
     // On the command line, set the property test.skipShutDown to false as such:
     //        ./gradlew -Dtest.skipShutDown=true integrationTest
     //
-    //     NOTE: In this case, before running the integrationTest again, via gradle, you will need to manually stop and remove these containers
+    //     NOTE: In this case, before running the integrationTest again, you will need to manually stop and remove these containers
 
     // Assign all Java system properties from
     // the command line to the JavaExec task.
@@ -93,7 +93,8 @@ dependencies {
   compile group: 'com.google.guava', name: 'guava', version: '19.0'
   compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
   compile group: 'org.apache.commons', name: 'commons-text', version: '1.3'
-  compile group: 'edu.emory.mathcs.backport', name: 'com.springsource.edu.emory.mathcs.backport', version: '3.1.0'
+  //compile group: 'edu.emory.mathcs.backport', name: 'com.springsource.edu.emory.mathcs.backport', version: '3.1.0'
+  compile group: 'backport-util-concurrent', name: 'backport-util-concurrent', version: '3.1'
   compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
   compile group: 'org.apache.commons', name: 'commons-exec', version: '1.3'
   compile group: 'commons-codec', name: 'commons-codec', version: '1.11'

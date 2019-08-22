@@ -1,6 +1,7 @@
 package integration;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 /**
  * Copyright 2019 XEBIALABS
  *
@@ -13,13 +14,11 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.util.Map;
 
-import com.palantir.docker.compose.DockerComposeRule;
-import com.palantir.docker.compose.configuration.ShutdownStrategy;
-import com.palantir.docker.compose.connection.DockerMachine;
 
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
+import org.testcontainers.containers.DockerComposeContainer;
 
 import integration.util.ConjurTestHelper;
 
@@ -29,12 +28,15 @@ public class ConjurIntegrationTest {
     
     @ClassRule
     // This DockerComposeRule will clean up the docker containers after the tests have run
-    public static DockerComposeRule docker = DockerComposeRule.builder()
+    public static DockerComposeContainer docker =
+        new DockerComposeContainer(new File("build/resources/test/docker/docker-compose.yml"))
+            .withLocalCompose(true);
+    /*public static DockerComposeRule docker = DockerComposeRule.builder()
                                                 .file(ConjurTestHelper.getResourceFilePath("docker/docker-compose.yml"))
                                                 .pullOnStartup(true)
                                                 .machine(getDockerMachine())
                                                 .shutdownStrategy(getShutdownStrategy())
-                                                .build();
+                                                .build();*/
 
     @BeforeClass
     public static void initialize() throws IOException, InterruptedException {
@@ -48,40 +50,10 @@ public class ConjurIntegrationTest {
         ConjurTestHelper.modifyFile((ConjurTestHelper.getResourceFilePath("docker/initialize/data/server-configs-Conjur.json")), "(\"password\": \")[A-Z,a-z,0-9]+(\")", 
             "\"password\": \""+ADMIN_KEY+"\"");
         ConjurTestHelper.initializeXLR();
-    }
-
-    // Utility Methods
-
-    private static DockerMachine getDockerMachine() {
-        // We need to perform a one time run on the conjur server docker container to generate and capture the conjur data key
-        // The key is then placed in the docker environment so that conjur can then be started and populated with secrets
-        String key = ConjurTestHelper.getCommandResult(
-                "docker-compose -f "+ ConjurTestHelper.getResourceFilePath("docker/docker-compose.yml")+" run --no-deps --rm conjur data-key generate");
-        DockerMachine dockerMachine = DockerMachine.localMachine()
-                .withAdditionalEnvironmentVariable("CONJUR_DATA_KEY", key).build();
-        return dockerMachine;
-    }
-
-    private static ShutdownStrategy getShutdownStrategy()
-    {
-        ShutdownStrategy strategy = null;
-        System.out.println("In get ShutdownStrategy");
-        System.out.println("Property test.skipShutDown = "+System.getProperty("test.skipShutDown"));
-        String skip = System.getProperty("test.skipShutDown");
-        if(skip != null && skip.equalsIgnoreCase("true"))
-        {
-            System.out.println("Skip");
-            strategy = ShutdownStrategy.SKIP;
-        } else {
-            System.out.println("Graceful");
-            strategy = ShutdownStrategy.GRACEFUL;
-        }
-        return strategy;
-    }
-
+    }    
 
     // Tests
-    /*
+    
     @Test
     public void testSecretRetrieval() throws Exception {
         String theResult = ConjurTestHelper.getConjurReleaseResult();
@@ -89,5 +61,4 @@ public class ConjurIntegrationTest {
         assertTrue(ConjurTestHelper.readFile(ConjurTestHelper.getResourceFilePath("testExpected/secretRetrieval.txt")).equals(theResult));
         System.out.println("testSecretRetrieval passed ");
     }
-    */
 }
